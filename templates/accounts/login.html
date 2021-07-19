@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'images/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'images/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'images/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'images/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'images/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'images/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'images/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'images/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'images/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#fff">
+    <meta name="msapplication-TileImage" content="{% static 'images/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#fff">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" >
+</head>
+<body>
+  <section class="load">{% include 'loading.html' %}</section>
+  <section class="main__section">
+    <div class="banner__wrapper">
+     
+      <div class="banner">
+        <div>
+        <div class="heading__1">
+          <h1>IIT Guwahati <br>Model United Nations</h1>
+        </div>
+        <div class="heading__2">
+          <h1>CoVID-19<br>HACKATHON</h1>
+        </div>
+        <div class="heading__3">
+          <h1>Contact us at :iitg@mun.in<br>Facebook : facebook/iitgMun <br>Instagram : instagram/iitgMun</h1>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="login">
+      <div class="logo__wrapper">
+        <img src="{% static 'images/logo.png'%}">
+      </div>
+      {% for message in messages%}
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+           <p class="error_message" style="color:red">{{ message }} </p>
+      {% endif %}
+      {% endfor %}
+      <div class="form__wrapper">
+       
+        <form method="post" action="{% url 'accounts:login' %}">
+          {% csrf_token %}
+          <div class="form__group">
+            <label for="username">Username</label><br/>
+            <input name="username" type="text" autocomplete="off" aria-autocomplete="none">
+          </div>
+          <div class="form__group">
+            <label for="password" aria-autocomplete="none">Password</label><br/>
+            <input name="password" type="password" aria-autocomplete="none" autocomplete="off" >
+          </div>
+          <div class="form__submit">
+            <button type="submit">Login</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+  <script>
+    let loadingWrapper=document.querySelector('.load'),afterLoad=document.querySelector('.main__section')  ;
+    window.addEventListener('load',()=>{
+    setTimeout(()=>{
+    afterLoad.classList.add('active')
+    loadingWrapper.classList.add('inactive')},1000)
+      
+    })
+
+
+    </script>
+</body>
+
+</html>

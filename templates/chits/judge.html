@@ -1,0 +1,67 @@
+{% extends 'chits/base.html' %}
+{% load static %}
+{% block content %}
+    <section class="message_area">
+       <style>
+           .message_area{
+               align-items: flex-start!important;
+               justify-content: flex-start!important;
+           }
+           .chit_area{
+               justify-self: start;
+               margin-left:5rem!important ;
+              
+               flex:0.5!important;
+           }
+           @media screen and (max-width:1200px) {
+             .chit_area{
+               
+               flex:.6 !important;
+               margin-left:1rem!important ;
+           }
+        }
+        
+          @media screen and (max-width:900px) {
+            .chit_area{
+              
+              flex:.8 !important;
+              margin-left:1rem!important ;
+          }
+          @media screen and (max-width:700px) {
+            .chit_area{
+                height: 90vh!important;
+              
+              flex:1 !important;
+              margin-left:0rem!important ;
+              
+
+          }
+        }
+               
+           }
+           .main_area .message_area{
+               margin-bottom: 2rem;
+           }
+       </style>
+        <div class="chit_area">
+            <div class="chits_box">
+                <div style="display:none">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" class="csrf"/>
+                </div>
+                
+            </div>
+
+        </div>
+
+    </section>
+
+   
+{% endblock %}
+
+
+{% block js %}
+   <script type="text/javascript" src="{% static 'js/fetchMessages.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/Judge.js' %}"></script>
+   <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+{% endblock %}
+        
