@@ -111,4 +111,3 @@ def createUsers(request) :
        
 #     return HttpResponse("data added")
 
-

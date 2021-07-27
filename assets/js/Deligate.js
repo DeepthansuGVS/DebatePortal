@@ -15,11 +15,15 @@ inputFieldDev = document.querySelector(".input_country") ;
 text = document.querySelector(".message textarea")
 
 
+/* fetches new messages and creates the html for each of them */
+
 const SetMessages = async ()=>{
     
     new_messages= await  Messages()
+    //Result - gets all the new messages excluding the old messages
     result= new_messages.filter((message)=>!old_messages.some((message2)=>message.id===message2.id))
     result.forEach(message=>{
+        /* creating the structure for HTML of a chit */
         const wrapper = document.createElement('div')
         wrapper.classList.add("single_chit")
         const header = document.createElement('div')
@@ -33,12 +37,16 @@ const SetMessages = async ()=>{
         replyHeader.classList.add('reply')
         content.textContent = message.chit
         header.textContent = "From: " + message.chit_from.name + " <" + message.chit_from.country_id + ">"
+        /* creating structure ends */
+
         
         if(message.reply_to_country)
         {
             replyHeader.textContent = "Reply from " + message.chit_from.name + " to " + message.reply_to_country +"'s " + " message"
             wrapper.appendChild(replyHeader)
         }
+        
+        /* changing the button value from send to reply */
         replyButton.textContent = "Reply"
         replyButton.addEventListener('click',()=>{
             replyButton.classList.add('clicked')
@@ -54,20 +62,23 @@ const SetMessages = async ()=>{
            },500)
               
         })
+        /* changing button value ends */
+ 
         button_wrapper.appendChild(replyButton)
         wrapper.appendChild(header)
         wrapper.appendChild(content)
         wrapper.setAttribute("id",`${message.id}`)
         wrapper.appendChild(button_wrapper)
         textbox.appendChild(wrapper)
+
     })
      old_messages=new_messages ;
 }
+/* fetching ends */
 
 
 
-
-
+/* sends new messages to the backend */
 form.addEventListener('submit',(e)=>{
    
     e.preventDefault() ;
@@ -85,7 +96,6 @@ form.addEventListener('submit',(e)=>{
             "content" : formData.getAll("chit")[0]
          })
         
-
     }else{
         url ='/chits/deligate/reply'
         send_data =JSON.stringify({
@@ -108,7 +118,10 @@ form.addEventListener('submit',(e)=>{
         type ="send"
         
     })
+
     .catch(error=>errorMessage=error.message)
+
+    /* delays the changes to be done */
     setTimeout(()=>{
         sendButton.disabled=false
         text.disabled= false
@@ -121,5 +134,4 @@ form.addEventListener('submit',(e)=>{
 })
 
 setInterval(SetMessages, 5000)
-
 
